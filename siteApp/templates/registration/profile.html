@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title%}
+    Profile
+{% endblock%}
+
+
+
+{% block content %}
+   <div class="container content">
+        <h2> {{ selected_user.get_full_name }}</h2>
+        <div class="row">
+            <div class="col-5">
+                {% if selected_user.profile.avatar.name %}
+                    <img src="{{selected_user.profile.avatar.url }}" class="avatar-img img-thumbnail">
+                {% else %}
+                    <img src="{% static 'img/user.jpg' %}" class="avatar-img img-thumbnail">
+                {% endif%}
+                
+                
+                {% if selected_user.id == user.id %}
+                    <a href="{% url  'edit_profile' %}" class="btn btn-sm btn-info">
+                        Редактировать профиль
+                    </a>
+                    <a href="{% url 'list_posts'%}" class="btn btn-sm btn-info">
+                        Посмотреть Все посты
+                    </a>
+                {% endif %}
+
+       
+            </div>
+        </div>
+        <div class="col">
+            <dl class="row">
+                <dt class="col-sm-3 tex-right">
+                    Полное имя
+                </dt>
+                <dd class="col-sm-9">
+                    {{selected_user.get_fill_name}}
+                </dd>
+
+                <dt class="col-sm-3 tex-right">
+                   Email
+                </dt>
+                <dd class="col-sm-9">
+                    {{selected_user.email}}
+                </dd>
+                
+                <dt class="col-sm-3 tex-right">
+                    Город
+                </dt>
+                <dd class="col-sm-9">
+                    {{selected_user.profile.city}}
+                </dd>
+            </dl>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title%}
+    Home
+{% endblock%}
+
+{% block content %}
+    {% if offset_content %}
+        <div class="offset_content">
+        <h1>Использование разметки сеток </h1>
+        <p> 
+            У карточек нет определенной ширины , 
+            так что они всегда будут занимать  ширины, 
+            пока не объявлено иное. Вы можете изменить 
+            ширины в CSS, классами сетки, SASS 
+        </p>
+        <a href="#"> разметки сеток</a>
+        </div>
+    {% endif%}
+
+
+    <div class="container content">
+        <div class="row">
+           
+                {% for post in posts%}
+                    <div class="col-sm-3">
+                        <div class="card " style="margin-top: 20px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{post.title}}</h5>
+                            <p class="card-text">{{post.text|truncatewords:15}}</p>
+                            <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Переход куда-нибудь</a>
+                        </div>
+                        </div>
+                    </div>
+                {% endfor%}
+     
+        </div>
+    </div>
+  
+{% endblock %}

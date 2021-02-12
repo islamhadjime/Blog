@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title%}
+    Post
+{% endblock%}
+
+{% block content %}
+
+
+    <div class="container content">
+        <div class="row">
+                {% if post_list %}
+                    {% for post in post_list %}
+                        <div class="col-sm-4">
+                            <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{post.title}}</h5>
+                                <p class="card-text">{{post.text|truncatewords:15}}</p>
+                                <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Переход куда-нибудь</a>
+                                <a href="#" class="btn btn-primary">Редактировать</a>
+                            </div>
+                            </div>
+                        </div>
+                    {% endfor%}
+                {% else %}
+                        <h2> Пока нету не какой статьи у вас 
+                {% endif %}
+
+        </div>
+    </div>
+
+
+{% endblock %}
