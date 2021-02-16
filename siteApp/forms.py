@@ -45,4 +45,14 @@ class PostForm(forms.ModelForm):
         exclude = ['author'] 
 
 
+class CommentForm (forms.ModelForm):
 
+    class Meta:
+        model =Comment
+        exclude = ['author','post','active']
+
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(label="",max_length=200)
+    

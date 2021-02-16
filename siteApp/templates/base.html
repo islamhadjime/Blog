@@ -15,7 +15,7 @@
         {% endblock%}
     </title>
   </head>
-  <body>
+  <body >
     
     <header>
         <nav class="navbar">
@@ -28,7 +28,9 @@
                 {% if user.is_authenticated %}
                     <li> <a href="{% url 'logout' %}">Выйти </a>
                     <li> <a href="{% url 'profile' %}"> Профиль  </a>
-                      <li> <a href="{% url 'post_add'%}"> Добавить  </a>
+                    <li> <a href="{% url 'post_add'%}"> Добавить  </a>
+                    <li> <a href="{% url 'list_persion'%}"> Пользователи  </a>
+                      
                 {% else%}
 
                     <li> <a href="{% url 'login' %}"> Войти</a>
@@ -37,7 +39,8 @@
             </ul>
         </nav>
     </header>
-
+    
+    
     {% block content %}
     {% endblock %}
 

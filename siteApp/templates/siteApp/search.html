@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+    <style>
+        .search{
+            padding-top: 100px;
+            display: block;
+        }
+    </style>
+    <div class="container search">
+        
+        {% if results%}
+            <h1>Сообщения, содержащие "{{ query }}"</h1>
+            <h3>
+            {% with results.count as total_results %}
+                Найденный {{ total_results }}
+            {% endwith %}
+            </h3>
+            {% for post in results %}
+                <div class="col-sm-4">
+                    <div class="card" style="margin-top: 20px;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{post.title}}</h5>
+                        <p class="card-text">{{post.text|truncatewords:15}}</p>
+                        <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Переход куда-нибудь</a>                       
+                    </div>
+                    </div>
+                </div>
+             {% endfor%}
+        {% else %}
+            <h1>Сообщения, содержащие "{{ query }}"</h1>
+            <p> Ксожилению ничего не найдено</p>
+            <h3>
+            {% with results.count as total_results %}
+                Найденный {{ total_results }}
+            {% endwith %}
+        {% endif%}
+    
+    </div>
+{% endblock %}

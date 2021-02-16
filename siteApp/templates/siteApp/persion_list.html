@@ -4,7 +4,7 @@
 
 
 {% block title%}
-    persion
+    list persion
 {% endblock%}
 
 
@@ -12,22 +12,25 @@
 
 <div class="container profile" style="padding-top: 200px;">
   <div class="row">
-
+    {% for item in persion%}
         <div class="col-sm-4">
             <div class="card" style="width: 18rem;">
-            {% if selected_user.profile.avatar.name%}
-                <img src="{{selected_user.profile.avatar.url}}" class="card-img-top" alt="...">
+            {% if item.profile.avatar.name%}
+                <img src="{{item.profile.avatar.url}}" class="card-img-top" alt="...">
             {% else%}
                 <img src="{% static 'img/user.jpg'%}" class="card-img-top" alt="...">
             {% endif%}
     
             <div class="card-body">
-                <h5 class="card-title">{{selected_user.get_full_name}}</h5>
-                <p class="card-text">{{selected_user.profile.buo}}</p>
+                <h5 class="card-title">{{item.get_full_name}}</h5>
+                <p class="card-text">{{item.profile.buo}}</p>
+                <a href="{{ item.profile.get_absolute_url }}" class="btn btn-primary">
+                 Перети к Профилю
+                </a>
             </div>
             </div>
         </div>
-
+    {% endfor%}
   </div>
 </div>
 

@@ -1,19 +1,152 @@
-{% extends 'base.html' %}
 
-{% block title%}
-    Post
-{% endblock%}
+
+
+
+
+{% extends "base.html" %}
+
+
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
+    <style>
+      
+
+        a { 
+            color:#00abff;
+            text-decoration:none; 
+        }
+
+        h1 { 
+            font-weight:normal;
+            border-bottom:1px solid #bbb;
+            padding:0 0 10px 0;
+        }
+
+        h2 {
+            font-weight:normal;
+            margin:30px 0 0;
+        }
+
+        #content { 
+            float:left;
+            width:60%;
+            padding:0 0 0 30px; 
+        }
+
+        #sidebar { 
+            float:right;
+            width:30%;
+            padding:10px;
+            background:#efefef; 
+            height:100%;
+        }
+
+        p.date { 
+            color:#ccc;
+            font-family: georgia, serif;
+            font-size: 12px;
+            font-style: italic; 
+        }
+
+        /* pagination */
+        .pagination { 
+            margin:40px 0; 
+            font-weight:bold;
+        }
+
+        /* forms */
+        label { 
+            float:left;
+            clear:both;
+            color:#333;
+            margin-bottom:4px; 
+        }
+        input, textarea { 
+            clear:both;
+            float:left;
+            margin:0 0 10px;
+            background:#ededed;
+            border:0;
+            padding:6px 10px;
+            font-size:12px;
+        }
+        input[type=submit] {
+            font-weight:bold;
+            background:#00abff;
+            color:#fff;
+            padding:10px 20px;
+            font-size:14px;
+            text-transform:uppercase; 
+        }
+        .errorlist { 
+            color:#cc0033;
+            float:left;
+            clear:both;
+            padding-left:10px; 
+        }
+
+        /* comments */
+        .comment {
+            padding:10px;
+            margin-top: 10px;
+            width: 600px;
+        }
+        .comment:nth-child(even) {
+            background:#efefef;
+        }
+        .comment .info {
+            font-weight:bold;
+            font-size:12px;
+            color:#666;
+        }
+        .comment_user{
+            margin-left: 20px;
+            padding-top: 150px;
+        }
+
+    </style>
 
 
-    <div class="container content">
-        <div class="row">
-            <div class="detail">
-                <h2> {{detail.title }}</h2>
-                <p> {{ detail.text}} </p>
-                
-            </div>
-        </div>
-    </div>>
+<div class="comment_user">
+  <h1>{{ post.title }}</h1>
+
+  <p class="date">
+    Published {{ post.datetime }} by {{ post.author }}
+  </p>
+  {{ post.text }}
+
+
+
+  {% with comments.count as total_comments %}
+    <h2>
+      {{ total_comments }} comment{{ total_comments|pluralize }}
+    </h2>
+  {% endwith %}
+  {% for comment in comments %}
+    <div class="comment">
+      <p class="info">
+        Комментарий:{{ forloop.counter }} Автор: {{ comment.name }}
+        {{ comment.datetime }}
+      </p>
+      {{ comment.text|linebreaks }}
+    </div>
+  {% empty %}
+    <p>Здесь еще нет комментариев.</p>
+  {% endfor %}
+
+  {% if new_comment %}
+    <h2>Ваш комментарий был добавлен..</h2>
+  {% else %}
+    <h2>Добавить новый комментарий</h2>
+    <form action="." method="post">
+      {{ comment_form.as_p }}
+      {% csrf_token %}
+      <p><input type="submit" value="Добавить комментарий"></p>
+    </form>
+  {% endif %}
+</div>
 {% endblock %}
+
+
+

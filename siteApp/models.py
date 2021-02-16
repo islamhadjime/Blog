@@ -39,10 +39,14 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    datetime = models.DateTimeField(verbose_name=u"Дата", auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=u"Автор", related_name="comments")
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name=u"Пост", related_name="comments")
-    text = models.CharField(max_length=1000, verbose_name=u"Текст", null=True, blank=True)
 
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, default="",verbose_name=u"Пост", related_name="comments")
+   
+    name = models.CharField(max_length=80,default="")
+    email = models.EmailField( default="")
+    text = models.TextField(verbose_name=u"Текст", null=True, blank=True)
+    datetime = models.DateTimeField(verbose_name=u"Дата", auto_now_add=True)
+    active = models.BooleanField(default=True)
+    
     class Meta:
         ordering = ["datetime"]

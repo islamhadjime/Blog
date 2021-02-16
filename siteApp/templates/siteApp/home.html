@@ -14,7 +14,12 @@
             пока не объявлено иное. Вы можете изменить 
             ширины в CSS, классами сетки, SASS 
         </p>
-        <a href="#"> разметки сеток</a>
+        <form method="POST" class="bootstrap-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-success" value="Добавить">
+
+        </form>
         </div>
     {% endif%}
 
@@ -36,5 +41,5 @@
      
         </div>
     </div>
-  
+    {% include "./pagination.html" with page=posts %}
 {% endblock %}

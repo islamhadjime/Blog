@@ -8,13 +8,14 @@ from .views import *
 
 
 urlpatterns = [
-    path('', home, name="home"),
-    # {% url 'post_edit' slug=post.slug%}
-    # # POSTS
 
+    # # POSTS
+    path('', HomeViews.as_view(), name="home"),
     path("post_add/", AddView.as_view(),name="post_add"),
     path("post/<str:slug>/", DetailView.as_view(),name="detail"),
-    # post("edit_post/<str:slug>",DetailPostView.as_view(),name="post_edit")
+    path("post/edit/<str:slug>/", EditPost.as_view(),name="post_edit"),
+    
+
     # PERSION
     path("accounts/login/", user_login,name="login"),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
@@ -25,8 +26,8 @@ urlpatterns = [
 
 
     # #   LIST PERSION
-    # path("users/", ViewUserView.as_view(),name="view_user"),
-    # path("user<str:username>",,name="view_user"),
+    path('user/<str:username>/', ViewUser.as_view(), name="view_user"),
+    path("users/", ViewsListUser.as_view(),name="list_persion"),
 
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS) +\
